@@ -10,18 +10,13 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-<<<<<<< HEAD
       
       User.hasOne(models.Profile) // 1:1
       User.belongsToMany(models.Service, { through: models.Order, foreignKey: 'UserId' }); // M:M
-=======
-      // define association here
->>>>>>> 7af2749d903f9cc362f861a64de0bb329c1fb044
     }
   }
   User.init({
     username: DataTypes.STRING,
-<<<<<<< HEAD
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -65,23 +60,15 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     }
-=======
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    role: DataTypes.STRING
->>>>>>> 7af2749d903f9cc362f861a64de0bb329c1fb044
   }, {
     sequelize,
     modelName: 'User',
   });
-<<<<<<< HEAD
 
   User.beforeCreate(user => {
     const salt = bcrypt.genSaltSync(10);
     user.password = bcrypt.hashSync(user.password, salt);
   })
 
-=======
->>>>>>> 7af2749d903f9cc362f861a64de0bb329c1fb044
   return User;
 };
