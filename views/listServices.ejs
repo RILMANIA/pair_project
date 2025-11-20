@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>On-demand App</title>
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f7f6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .main-container {
+            width: 100%;
+            max-width: 1100px;
+            padding: 30px 20px;
+            box-sizing: border-box;
+        }
+
+        .search-bar {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            display: flex;
+            gap: 10px;
+        }
+        .search-input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 15px;
+        }
+        .btn-search {
+            background-color: #004a94;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .service-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+            border: 1px solid #dfe4ea;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        .card-body {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-category {
+            font-size: 12px;
+            color: #004a94;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        .card-title {
+            font-size: 18px;
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+        }
+        .card-price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #27ae60;
+            margin-top: auto;
+            margin-bottom: 15px;
+        }
+        .btn-detail {
+            display: block;
+            text-align: center;
+            background-color: transparent;
+            border: 1px solid #004a94;
+            color: #004a94;
+            padding: 10px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .btn-detail:hover {
+            background-color: #004a94;
+            color: white;
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: #004a94;
+            color: white;
+            padding: 0 30px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            height: 70px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-content {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .navbar-links a {
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-links a:hover {
+            color: white;
+        }
+
+        .navbar-biasa {
+            color: #e0e0e0;
+        }
+
+        .user-greeting {
+            font-size: 14px;
+            color: #bbdefb;
+            font-weight: normal;
+            margin-right: 10px;
+            border-right: 1px solid #ffffff50;
+            padding-right: 20px;
+        }
+
+        .user-greeting strong {
+            color: white;
+            font-weight: 600;
+        }
+
+        .btn-nav-auth {
+            background-color: white;
+            color: #004a94;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            text-decoration: none !important;
+            transition: background-color 0.2s, color 0.2s, transform 0.2s;
+        }
+
+        .btn-nav-auth:hover {
+            background-color: #f0f0f0;
+            color: #003870;
+            transform: translateY(-1px);
+        }
+
+        .btn-logout {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-logout:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <%- include('partial/_navbar.ejs') %>
+
+    <div class="main-container">
+        <h1>Temukan Layanan</h1>
+        
+        <form action="/services" method="GET" class="search-bar">
+            <input type="text" name="search" class="search-input" placeholder="Cari layanan (misal: Pijat, Ojek)...">
+            <button type="submit" class="btn-search">Cari</button>
+        </form>
+
+        <div class="services-grid">
+            <% data.forEach(el => { %>
+                <div class="service-card">
+                    <img src="<%= el.imgUrl || 'https://via.placeholder.com/300' %>" alt="<%= el.name %>" class="card-img">
+                    <div class="card-body">
+                        <span class="card-category"><%= el.Category ? el.Category.name : 'Umum' %></span>
+                        <h3 class="card-title"><%= el.name %></h3>
+                        <p><%= el.description.substring(0, 100) %>...</p>
+                        <p class="card-price"><%= el.formatRupiah %></p>
+                        <a href="/services/<%= el.id %>" class="btn-detail">Lihat Detail</a>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</body>
+</html>

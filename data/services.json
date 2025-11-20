@@ -1,0 +1,37 @@
+[
+  {
+    "name": "ZapRide",
+    "description": "Meluncur menembus kemacetan kota secepat kilat dengan armada motor listrik kami.",
+    "price": 15000,
+    "imgUrl": "https://i.pinimg.com/1200x/e9/7e/80/e97e80b113fbdabb2a7aa9b3e9d617f3.jpg",
+    "CategoryId": 1
+  },
+  {
+    "name": "ZapEats",
+    "description": "Lapar? Makanan favorit mendarat di meja Anda dalam hitungan menit.",
+    "price": 10000,
+    "imgUrl": "https://cdn5.f-cdn.com/contestentries/1803789/12117858/5f32a553bde42_thumb900.jpg",
+    "CategoryId": 2
+  },
+  {
+    "name": "ZapSparkle",
+    "description": "Rumah kinclong seketika dengan sentuhan ahli kebersihan kami.",
+    "price": 50000,
+    "imgUrl": "https://i.pinimg.com/736x/82/e5/ad/82e5adf392d9f8fb687ea15f1019a0a2.jpg",
+    "CategoryId": 3
+  },
+  {
+    "name": "ZapRelax",
+    "description": "Pijat relaksasi instan untuk mengembalikan energi Anda setelah hari yang panjang.",
+    "price": 75000,
+    "imgUrl": "https://i.pinimg.com/736x/ee/04/be/ee04be055d11b1860d47ed4017ab25bb.jpg",
+    "CategoryId": 4
+  },
+  {
+    "name": "ZapCourier",
+    "description": "Kirim paket apa saja, kemana saja, secepat kedipan mata.",
+    "price": 20000,
+    "imgUrl": "https://i.pinimg.com/1200x/d8/c1/3d/d8c13db520149419cf08378d95f30cd1.jpg",
+    "CategoryId": 5
+  }
+]

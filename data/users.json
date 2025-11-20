@@ -1,0 +1,20 @@
+[
+  {
+    "username": "john_doe",
+    "email": "john@mail.com",
+    "password": "password123", 
+    "role": "Customer"
+  },
+  {
+    "username": "jane_admin",
+    "email": "admin@mail.com",
+    "password": "adminpassword",
+    "role": "Admin"
+  },
+  {
+    "username": "budi_santoso",
+    "email": "budi@mail.com",
+    "password": "password123",
+    "role": "Customer"
+  }
+]

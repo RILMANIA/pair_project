@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "Transportasi"
+  },
+  {
+    "id": 2,
+    "name": "Kuliner"
+  },
+  {
+    "id": 3,
+    "name": "Kebersihan"
+  },
+  {
+    "id": 4,
+    "name": "Kesehatan"
+  },
+  {
+    "id": 5,
+    "name": "Logistik"
+  }
+]

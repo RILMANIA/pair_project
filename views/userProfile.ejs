@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>On-demand App</title>
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 800px;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        .profile-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            border: 1px solid #dfe4ea;
+        }
+
+        .profile-header {
+            background-color: #004a94;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: white;
+            margin: 0 auto 15px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            color: #004a94;
+            font-weight: bold;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .profile-header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .profile-header p {
+            margin: 5px 0 0 0;
+            opacity: 0.8;
+            font-size: 14px;
+        }
+
+        .profile-content {
+            padding: 30px 40px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #34495e;
+            font-size: 14px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 15px;
+            box-sizing: border-box;
+            color: #333;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #004a94;
+            box-shadow: 0 0 5px rgba(0, 74, 148, 0.2);
+        }
+
+        /* Readonly input (untuk email/username) */
+        .form-input[readonly] {
+            background-color: #e9ecef;
+            color: #6c757d;
+            cursor: not-allowed;
+        }
+
+        .btn-save {
+            display: block;
+            width: 100%;
+            background-color: #004a94;
+            color: white;
+            padding: 12px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 20px;
+        }
+
+        .btn-save:hover {
+            background-color: #003870;
+        }
+
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: #004a94;
+            color: white;
+            padding: 0 30px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            height: 70px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-content {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .navbar-links a {
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-links a:hover {
+            color: white;
+        }
+
+        .navbar-biasa {
+            color: #e0e0e0;
+        }
+
+        .user-greeting {
+            font-size: 14px;
+            color: #bbdefb;
+            font-weight: normal;
+            margin-right: 10px;
+            border-right: 1px solid #ffffff50;
+            padding-right: 20px;
+        }
+
+        .user-greeting strong {
+            color: white;
+            font-weight: 600;
+        }
+
+        .btn-nav-auth {
+            background-color: white;
+            color: #004a94;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            text-decoration: none !important;
+            transition: background-color 0.2s, color 0.2s, transform 0.2s;
+        }
+
+        .btn-nav-auth:hover {
+            background-color: #f0f0f0;
+            color: #003870;
+            transform: translateY(-1px);
+        }
+
+        .btn-logout {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-logout:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <%- include('partial/_navbar.ejs') %>
+
+        <div class="main-container">
+
+            <% if (msg) { %>
+                <div class="alert <%= msg.includes('berhasil') ? 'alert-success' : 'alert-error' %>">
+                    <%= msg %>
+                </div>
+                <% } %>
+
+                    <div class="profile-card">
+
+                        <div class="profile-header">
+                            <div class="profile-avatar">
+                                <%= user.username.charAt(0).toUpperCase() %>
+                            </div>
+                            <h1>
+                                <%= user.username %>
+                            </h1>
+                            <p>Member sejak: <%= user.createdAt.toLocaleDateString('id-ID') %>
+                            </p>
+                        </div>
+
+                        <div class="profile-content">
+                            <form action="/profile/edit" method="POST">
+
+                                <div class="form-group">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-input" value="<%= user.email %>" readonly>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Role</label>
+                                    <input type="text" class="form-input" value="<%= user.role %>" readonly>
+                                </div>
+
+                                <hr style="margin: 25px 0; border: 0; border-top: 1px solid #eee;">
+
+                                <div class="form-group">
+                                    <label class="form-label" for="fullName">Nama Lengkap</label>
+                                    <input type="text" name="fullName" id="fullName" class="form-input"
+                                        value="<%= user.Profile ? user.Profile.fullName : '' %>"
+                                        placeholder="Masukkan nama lengkap Anda">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="phoneNumber">Nomor HP</label>
+                                    <input type="text" name="phoneNumber" id="phoneNumber" class="form-input"
+                                        value="<%= user.Profile ? user.Profile.formattedPhone() : '' %>"
+                                        placeholder="08xxxxxxxx">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="address">Alamat Lengkap</label>
+                                    <input type="text" name="address" id="address" class="form-input"
+                                        value="<%= user.Profile ? user.Profile.address : '' %>"
+                                        placeholder="Jalan, Kota, Kode Pos...">
+                                </div>
+
+                                <button type="submit" class="btn-save">Simpan Perubahan</button>
+                            </form>
+                        </div>
+
+                    </div>
+        </div>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<nav class="navbar">
+    <div class="navbar-content">
+
+        <a href="/" class="navbar-brand">On Demand App</a>
+
+        <div class="navbar-links">
+            
+            <a href ="/" class="navbar-biasa">Home</a>
+            <a href="/services" class="navbar-biasa">Layanan</a>
+
+            <% if (locals.user) { %>
+                
+                <% if (locals.user.role === 'Admin') { %>
+                    <a href="/services/add" class="navbar-biasa">Tambah Layanan</a>
+                <% } %>
+
+                <% if (locals.user.role === 'Customer') { %>
+                    <a href="/orders/history" class="navbar-biasa">Riwayat Pesanan</a>
+                <% } %>
+
+                <a href="/profile" class="navbar-biasa" style="display: flex; align-items: center; gap: 5px;">
+          
+                <span style="background: rgba(255,255,255,0.2); width: 24px; height: 24px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 12px;">
+                <%= user.username.charAt(0).toUpperCase() %>
+                </span>
+                Profil
+                </a>
+
+                <a href="/logout" class="btn-nav-auth btn-logout">Logout</a>
+
+            <% } else { %>
+                
+                <a href="/login" class="navbar-biasa">Masuk</a>
+                <a href="/register" class="btn-nav-auth">Daftar</a>
+
+            <% } %>
+
+        </div>
+    </div>
+</nav>
