@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/RILMANIA/pair_project#readme",
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "pg": "^8.16.3",

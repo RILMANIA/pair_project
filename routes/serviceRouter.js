@@ -11,6 +11,6 @@ router.post('/add', Controller.createService);
 router.get('/:id', Controller.serviceDetail);
 
 // Nanti tambah route Buy/Order di sini
-// router.post('/:id/buy', Controller.buyService);
+router.post('/:id/buy', Controller.buyService);
 
 module.exports = router;

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services</title>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a> || 
+        <a href="/services">Services</a>
+    </nav>
+
+    <h1>List of services</h1>
+
+    <p>Click to add a service: <a href="/services/add">Add</a></p>
+    <br>
+
+    <table border="1">
+        <tr>
+            <th>No</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Action</th>
+        </tr>
+
+        <% data.forEach(( el, index) => { %>
+            <tr>
+                <td><%= index + 1 %></td>
+                <td><img src="<%= el.imgUrl %>" alt="picture of <%= el.name %>" width="200"></td>
+                <td><%= el.name %></td>
+                <td><%= el.Category.name %></td>
+                <td>
+                    <a href="/services/<%= el.id %>">See Details</a>
+                </td>
+            </tr>
+        <% }) %>
+
+    </table>
+
+</body>
+</html>
