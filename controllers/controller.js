@@ -77,15 +77,16 @@ class Controller{
         try {
             const { name, description, price ,imgUrl, CategoryId} = req.body
 
-            await Service.Create({
+            await Service.create({
                 name,
                 description,
                 price,
                 imgUrl,
                 CategoryId
             })
+
+            res.redirect('/services')
         } 
-        
         catch (error) {
             console.log(error);
             res.send(error);
