@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
       }).format(this.price);
     }
 
+    static async findHome(){
+      return Service.findAll()
+    }
+
     static associate(models) {
       
       Service.belongsTo(models.Category, { foreignKey: 'CategoryId' });

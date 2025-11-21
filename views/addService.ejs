@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Zapzapp</title>
 
     <style>
         body {
@@ -282,7 +282,7 @@
                         </div>
                         <% } %>
 
-                            <form action="/services/add" method="POST" class="form-grid">
+                            <form action="/services/add" method="POST" class="form-grid" enctype="multipart/form-data">
 
                                 <label for="name">Nama Layanan</label>
                                 <div>
@@ -311,11 +311,11 @@
                                     <span class="input-helper">* Harga per unit/layanan</span>
                                 </div>
 
-                                <label for="imgUrl">URL Gambar</label>
+                                <label for="imgUrl">Gambar</label>
                                 <div>
-                                    <input class="form-input" type="text" id="imgUrl" name="imgUrl"
+                                    <input class="form-input" type="file" id="imgUrl" name="imgUrl" accept="image/*"
                                         placeholder="https://...">
-                                    <span class="input-helper">* Masukkan link gambar langsung (JPG/PNG)</span>
+                                    <span class="input-helper">* Format: JPG, PNG (Max 5MB)</span>
                                 </div>
 
                                 <label for="description" class="label-top">Deskripsi</label>

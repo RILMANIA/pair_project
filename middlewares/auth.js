@@ -1,11 +1,20 @@
 // Middleware 1: Cek apakah user SUDAH login
 const isLoggedIn = (req, res, next) => {
-    // Cek apakah ada data userId di session
+
     if (!req.session.userId) {
         const error = "Please login first";
         return res.redirect(`/login?error=${error}`);
     }
-    // Jika ada, lanjut ke controller berikutnya
+
+    next();
+};
+
+const isNotLoggedIn = (req, res, next) => {
+
+    if (req.session.userId) {
+        return res.redirect(`/services`);
+    }
+
     next();
 };
 
@@ -19,4 +28,4 @@ const isAdmin = (req, res, next) => {
     }
 };
 
-module.exports = { isLoggedIn, isAdmin };
+module.exports = { isLoggedIn, isAdmin, isNotLoggedIn };

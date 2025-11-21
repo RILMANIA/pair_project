@@ -1,16 +1,16 @@
 const { Category, Service, User, Profile } = require('../models/index');
 const { Op } = require('sequelize');
 
-class Controller{
+class Controller {
 
     //! Landing Page (Home)
-    static async home(req,res){
+    static async home(req, res) {
         try {
-            
-            const services = await Service.findAll();
+
+            const services = await Service.findHome();
             res.render('homePage', { services });
-        } 
-        
+        }
+
         catch (error) {
             console.log(error);
             res.send(error);
@@ -18,17 +18,17 @@ class Controller{
     }
 
     //! List Services (Halaman Katalog Jasa)
-    static async listServices(req, res){
+    static async listServices(req, res) {
         try {
-            
+
             console.log(req.query);
-            
+
             const { search } = req.query;
             let data = await Service.findAll({
                 include: Category
             })
 
-            if(search){
+            if (search) {
                 data = await Service.findAll({
                     include: {
                         model: Category
@@ -43,8 +43,8 @@ class Controller{
 
             //res.send(data)
             res.render('listServices', { data })
-        } 
-        
+        }
+
         catch (error) {
             console.log(error);
             res.send(error);
@@ -52,19 +52,22 @@ class Controller{
     }
 
     //! Detail Service (Untuk memesan)
-    static async serviceDetail(req, res){
+    static async serviceDetail(req, res) {
         try {
             const { id } = req.params;
             const service = await Service.findByPk(id, { include: Category });
-      
+
+            const UserId = req.session.user.id;
+            let user = await User.findByPk(UserId)
+
             if (!service) {
                 const error = "Service not found";
                 return res.redirect(`/services?error=${error}`);
             }
 
-            res.render('detailServices', { service });
-        } 
-        
+            res.render('detailServices', { service, user });
+        }
+
         catch (error) {
             console.log(error);
             res.send(error);
@@ -72,12 +75,12 @@ class Controller{
     }
 
     //! Admin: Add Service Form
-    static async addServiceForm(req, res){
+    static async addServiceForm(req, res) {
         try {
             const categories = await Category.findAll();
             res.render('addService', { categories });
-        } 
-        
+        }
+
         catch (error) {
             console.log(error);
             res.send(error);
@@ -85,16 +88,28 @@ class Controller{
     }
 
     //! Admin: Create Service (POST)
-    static async createService(req, res){
+    static async createService(req, res) {
         try {
-            const { name, description, price, imgUrl, CategoryId } = req.body;
-      
-            // Validasi otomatis dari Model akan berjalan di sini
-            await Service.create({ name, description, price, imgUrl, CategoryId });
-      
+            const { name, description, price, CategoryId } = req.body;
+
+            let imgPath = 'https://via.placeholder.com/300'; // Default
+
+            if (req.file) {
+                imgPath = `/uploads/${req.file.filename}`;
+            }
+
+            await Service.create({
+                name,
+                description,
+                price,
+                imgUrl: imgPath,
+                CategoryId
+            });
+
             res.redirect('/services');
-        } 
-        
+
+        }
+
         catch (error) {
             if (error.name === 'SequelizeValidationError') {
                 const errors = error.errors.map(el => el.message);
@@ -102,6 +117,25 @@ class Controller{
             } else {
                 res.send(error.message);
             }
+        }
+    }
+
+    static async deleteService(req, res){
+        try {
+
+            const { id } = req.params;
+            await Service.destroy({
+                where: {
+                    id: id
+                }
+            })
+
+            res.redirect('/services')
+        } 
+        
+        catch (error) {
+            console.log(error);
+            res.send(error);
         }
     }
 }

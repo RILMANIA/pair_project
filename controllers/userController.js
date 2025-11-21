@@ -7,7 +7,8 @@ class UserController {
     //! Form Register
     static registerForm(req, res) {
         try {
-            res.render('register')
+            const { error } = req.query;
+            res.render('register', { error })
         }
 
         catch (error) {
@@ -24,7 +25,7 @@ class UserController {
 
             // Buat user baru
             const newUser = await User.create({ username, email, password, role });
-            console.log(newUser);
+            // console.log(newUser);
 
 
             // Otomatis buat Profile kosong untuk user tersebut (1:1)
@@ -34,6 +35,15 @@ class UserController {
         }
 
         catch (error) {
+
+            if(error.name === "SequelizeValidationError"){
+                error = error.errors.map(el => {
+                    return el.message;
+                })
+            }
+
+            res.redirect(`register?error=${error}`)
+
             console.log(error);
             res.send(error);
         }
@@ -84,8 +94,17 @@ class UserController {
         }
 
         catch (error) {
+
+            if(error.name === "SequelizeValidationError"){
+                error = error.errors.map(el => {
+                    return el.message;
+                })
+            }
+
+            res.redirect(`login?error=${error}`)
+
             console.log(error);
-            res.send(error.message);
+            res.send(error);
         }
     }
 
@@ -147,7 +166,7 @@ class UserController {
                 const errors = error.errors.map(e => e.message);
                 return res.redirect(`/profile?msg=${errors}`);
             }
-            res.send(error.message);
+            res.send(error);
         }
     }
 }

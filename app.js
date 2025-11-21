@@ -21,6 +21,8 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(express.static('public')); 
+
 app.use(router);
 
 app.listen(port, () => {

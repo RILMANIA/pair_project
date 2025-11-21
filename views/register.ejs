@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>On-demand App</title>
+    <title>Zapzapp</title>
 
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
@@ -16,24 +16,43 @@
         .btn-submit:hover { background-color: #003870; }
         .auth-footer { margin-top: 20px; font-size: 14px; color: #666; }
         .auth-footer a { color: #004a94; text-decoration: none; }
+        .error-msg {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 15px;color: #dc3545;
+            background-color: #ffe6e6;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 15px;
+            border: 1px solid #ffcccc;
+        }
     </style>
 </head>
 <body>
     <div class="auth-card">
         <h2 class="auth-title">Daftar Akun</h2>
+
+        <% if (locals.error) { %>
+            <div class="error-msg">
+                <% error = error.split(",") %>
+                <% error.forEach(el => { %>
+                    <p>⚠️ <%= el %></p>
+                <% }) %>
+            </div>
+        <% } %>
         
         <form action="/register" method="POST">
             <div class="form-group">
                 <label class="form-label">Username</label>
-                <input type="text" name="username" class="form-input" required>
+                <input type="text" name="username" class="form-input">
             </div>
             <div class="form-group">
                 <label class="form-label">Email</label>
-                <input type="email" name="email" class="form-input" required>
+                <input type="email" name="email" class="form-input">
             </div>
             <div class="form-group">
                 <label class="form-label">Password</label>
-                <input type="password" name="password" class="form-input" required>
+                <input type="password" name="password" class="form-input">
             </div>
             <div class="form-group">
                 <label class="form-label">Role</label>
