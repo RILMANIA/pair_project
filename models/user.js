@@ -1,12 +1,23 @@
 'use strict';
+<<<<<<< HEAD
 const bcrypt = require('bcryptjs');
 
+=======
+>>>>>>> d2a59cc91c4883d65eee3ea1ba7f07dc17e64693
 const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
+<<<<<<< HEAD
     
+=======
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+>>>>>>> d2a59cc91c4883d65eee3ea1ba7f07dc17e64693
     static associate(models) {
       
       User.hasOne(models.Profile) // 1:1
